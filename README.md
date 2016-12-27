@@ -1,16 +1,16 @@
 # CryptoBank | Incomplete Self hosted encrypted file storage
 
-The idea behind CryptoBank was to have encrypted personal file storage where metadata and data is encrypted.
-I started this project but abandoned it after getting caught up in other projects, so I'm releasin the source code for anyone who wants to see how it worked or if they want to continue it.
-I believe MEGA.co.nz works similarly so if you want secure file storage, you can get it there.
+The idea behind CryptoBank was to have encrypted personal file storage where metadata and data is encrypted.  
+I started this project but abandoned it after getting caught up in other projects, so I'm releasing the source code for anyone who wants to see how it worked or if they want to continue it.  
+I believe MEGA.co.nz works similarly so if you want secure file storage, you can get it there.  
 
 ![Alt text](https://i.imgur.com/CFD6sEP.png?raw=true "Install")
 
 ### Algorithm
-If you want to continue this project or use any code here's how the complete project should work.
-Register, get a PBKDF2 hash from users information, use that to generate a private key for AES-256
-Any uploads are encrypted with AES-256 and assigned a random ID, that ID is assigned to it's original metadata which is encrypted in a blob
-When a download occurs 
+If you want to continue this project or use any code here's how the complete project should work.  
+Register, get a PBKDF2 hash from users information, use that to generate a private key for AES-256  
+Any uploads are encrypted with AES-256 and assigned a random ID, that ID is assigned to it's original metadata which is encrypted in a blob  
+When a download occurs, load encrypted blob into memory then decrypt with the PBKDF-2 key with AES-256  
 
 ### Project Files
 
