@@ -1,0 +1,39 @@
+function window.Login(){
+  var password = sha256(document.getElementById("password").value);
+  var passphrase = document.getElementById("passphrase").value;
+  var sent_password = {hash:password};
+  var output = SendJson(sent_password, "/auth/login");
+
+  if(output[0] == 200){
+    var profile = JSON.parse(output[1]);
+    localStorage.setItem("token", profile.token);
+    localStorage.setItem("token_expire", profile.expires);
+		var easyPbkdf2 = require("easy-pbkdf2")();
+    easyPbkdf2.secureHash( password, profile.salt, function( err, passwordHash, originalSalt ) {
+    var privatekey = CryptoJS.AES.decrypt(profile.key, passwordHash).toString(CryptoJS.enc.Latin1);
+    var test = CryptoJS.AES.decrypt(profile.test, privatekey).toString(CryptoJS.enc.Latin1);
+    if(test == "test"){
+      localStorage.setItem("privatekey", privatekey);
+      window.location = "/dashboard";
+    }else{
+        document.getElementById("status").innerHTML = "Incorrect Passphrase";
+    }
+});
+  }else{
+    document.getElementById("status").innerHTML = "Incorrect Password";
+  }
+}
+
+function SendJson(object,url) {
+  var xhttp = new XMLHttpRequest()
+  xhttp.open("POST", url, false);
+  xhttp.send(JSON.stringify(object));
+  return [xhttp.status, xhttp.responseText];
+}
+
+function Fetch(url) {
+  var xhttp = new XMLHttpRequest()
+  xhttp.open("GET", url, false);
+  xhttp.send(null);
+  return xhttp.responseText;
+}
