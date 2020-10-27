@@ -21,7 +21,7 @@ When a download occurs, load encrypted blob into memory then decrypt with the PB
  Since we're using PBKDF-2 it's impossible to decrypt the users information without the original password, the random interations and other information in place compeltely cuts out the vulnerability of a server being compromised.
  This service works similar to how ProtonMail encrypts their users information.
 
-###To Do
+### To Do
 * File uploads: Encrypt data and assign random ID, store locally, encrypt the metadata and assign that to the ID of the file
 * Send metadata of files with their assigned random IDs encrypted in AES-256 to be decrypted client side with the PBKDF-2 with AES-256.
 * File downloads: download encrypted blob into memory then decrypt with the PBKDF-2 key with AES-256
